@@ -1,0 +1,6 @@
+/home/karim/Desktop/Projects/GlowHockey/GlowHockey/GlowHockey/bin/Debug/GlowHockey.exe
+/home/karim/Desktop/Projects/GlowHockey/GlowHockey/GlowHockey/bin/Debug/GlowHockey.pdb
+/home/karim/Desktop/Projects/GlowHockey/GlowHockey/GlowHockey/obj/Debug/GlowHockey.csprojAssemblyReference.cache
+/home/karim/Desktop/Projects/GlowHockey/GlowHockey/GlowHockey/obj/Debug/GlowHockey.csproj.CoreCompileInputs.cache
+/home/karim/Desktop/Projects/GlowHockey/GlowHockey/GlowHockey/obj/Debug/GlowHockey.exe
+/home/karim/Desktop/Projects/GlowHockey/GlowHockey/GlowHockey/obj/Debug/GlowHockey.pdb
