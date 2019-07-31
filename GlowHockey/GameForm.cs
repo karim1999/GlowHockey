@@ -18,6 +18,7 @@ namespace GlowHockey
 
         private int screenWidth= 600;
         private int screenHeight= 800;
+
         
         public GameForm()
         {
