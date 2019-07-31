@@ -17,6 +17,9 @@ namespace GlowHockey.GameObjects
         public Goal goal;
 
         public int score;
+
+        public Player opponent;
+
         public enum Type
         {
             Top,
@@ -37,6 +40,11 @@ namespace GlowHockey.GameObjects
             x = defaultX;
             y = defaultY;
             
+        }
+
+        public void setOpponent(Player player)
+        {
+            this.opponent = player;
         }
         public override void drawShape(Graphics g)
         {

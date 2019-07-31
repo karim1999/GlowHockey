@@ -33,9 +33,13 @@ namespace GlowHockey
             player2 = new Player( screenWidth/2 - Player.radius, screenHeight/4*3  - Player.radius, Color.Red,  Color.Gray, Player.Type.Bottom);
             goal2= new Goal(screenWidth/2 - Goal.width/2, screenHeight, screenWidth / 2 + Goal.width/2, screenHeight - Goal.height, player2);
 
-            ball = new Ball( screenWidth/2, screenHeight/2, Color.Blue,  Color.Blue);
+            ball = new Ball( screenWidth/2 - Ball.radius, screenHeight/2 - Ball.radius, Color.Blue,  Color.Blue);
+
+            player1.setOpponent(player2);
+            player2.setOpponent(player1);
+            
             timer = new Timer();
-            timer.Interval = 10;
+            timer.Interval = 1000/60;
             timer.Tick+= TimerOnTick;
             timer.Start();
             
@@ -60,12 +64,18 @@ namespace GlowHockey
             player1.drawShape(g);
             goal1.drawShape(g);
             goal2.drawShape(g);
-            ball.move(frame, new Player[]{player1, player2});
-            
             ball.drawShape(g);
-            
+
+            ball.move(frame, new Player[]{player1, player2}, new Goal[]{goal1, goal2});
+
+            checkGameStatus();
         }
 
+
+        private void checkGameStatus()
+        {
+//            if()
+        }
         private void OnPaint(object sender, PaintEventArgs e)
         {
         }
