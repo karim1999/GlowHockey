@@ -24,8 +24,11 @@ namespace GlowHockey.GameObjects
         }
         public override void drawShape(Graphics g)
         {
-            RectangleF reactangle= new RectangleF(x, y, width, height);
-            g.FillRectangle(brush, reactangle);
+            g.FillRectangle(new SolidBrush(innerColor), x, y, width, height);  
+            g.DrawRectangle(new Pen(outerColor, 10), x, y, width, height);  
+
+//            RectangleF reactangle= new RectangleF(x, y, width, height);
+//            g.FillRectangle(brush, reactangle);
 //            Rectangle reactangle2= new Rectangle(0, 0, width, height);
 //            g.DrawRectangle(pen, reactangle2);
         }

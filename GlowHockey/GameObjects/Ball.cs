@@ -5,24 +5,24 @@ namespace GlowHockey.GameObjects
 {
     public class Ball : GameObject
     {
-        private float radius;
-        private int width;
-        private int height;
+        public static float radius= 15;
+
+        private float width;
+        private float height;
         
         public Brush brush;
         public Pen pen;
 
-        public double speedX= 20;
-        public double speedY= 20;
+        public double speedX= 5;
+        public double speedY= 5;
 
 //        public double maxSpeed= 10;
         
-        public Ball(float defaultX, float defaultY, Color innerColor, Color outerColor, int radius) : base(defaultX, defaultY, innerColor, outerColor)
+        public Ball(float defaultX, float defaultY, Color innerColor, Color outerColor) : base(defaultX, defaultY, innerColor, outerColor)
         {
             brush= new SolidBrush(innerColor);
             pen= new Pen(outerColor, 100);
 
-            this.radius = radius;
             this.width = radius*2;
             this.height = radius*2;
 
@@ -52,9 +52,9 @@ namespace GlowHockey.GameObjects
 
             foreach (Player player in players)
             {
-                PointF playerCenter= new PointF(player.x+player.radius, player.y + player.radius);
+                PointF playerCenter= new PointF(player.x+Player.radius, player.y + Player.radius);
                 double distance = Math.Sqrt(Math.Pow(ballCenter.X - playerCenter.X, 2) + Math.Pow(ballCenter.Y - playerCenter.Y, 2));
-                if (distance <= player.radius + radius)
+                if (distance <= Player.radius + radius)
                 {
                     if (ballCenter.X - playerCenter.X != 0)
                     {

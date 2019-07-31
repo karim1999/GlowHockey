@@ -5,37 +5,42 @@ namespace GlowHockey.GameObjects
     public class Player : GameObject
 
     {
-        public float radius;
-        public int width;
-        public int height;
+
+        public static float radius= 30;
+        
+        public float width;
+        public float height;
         
         public Brush brush;
         public Pen pen;
 
+        public Goal goal;
+
+        public int score;
         public enum Type
         {
             Top,
             Bottom
         }
 
+        public Type type;
         
-        public Player(float defaultX, float defaultY, Color innerColor, Color outerColor, int radius, Type type) : base(defaultX, defaultY, innerColor, outerColor)
+        public Player(float defaultX, float defaultY, Color innerColor, Color outerColor, Type type) : base(defaultX, defaultY, innerColor, outerColor)
         {
             brush= new SolidBrush(innerColor);
             pen= new Pen(outerColor, 100);
 
-            this.radius = radius;
+            this.type = type;
             this.width = radius*2;
             this.height = radius*2;
 
             x = defaultX;
             y = defaultY;
+            
         }
         public override void drawShape(Graphics g)
         {
-            RectangleF reactangle= new RectangleF(x, y, width, height);
-            g.FillEllipse(brush, reactangle);
-            
+            g.FillEllipse(brush, x, y, width, height);
         }
     }
 }
