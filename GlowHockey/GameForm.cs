@@ -7,7 +7,6 @@ namespace GlowHockey
 {
     public partial class GameForm : Form
     {
-        private Graphics g;
         private Timer timer;
         private Frame frame;
         private Player player1;
@@ -23,19 +22,41 @@ namespace GlowHockey
         
         public GameForm()
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
             
             this.Size= new Size(600+10, 800+30);
             
             initializeGameObjects();
-            
+
             timer = new Timer();
-            timer.Interval = 1000/60;
-            timer.Tick+= TimerOnTick;
+            timer.Interval = 1000 / 120;
+            timer.Tick += TimerOnTick;
             timer.Start();
-            
+
             this.MouseMove += OnMouseMove;
-            
+            this.Paint += GameForm_Paint;
+        }
+
+        private void TimerOnTick(object sender, EventArgs e)
+        {
+            Console.WriteLine("Game");
+
+            move(frame, new Player[] { player1, player2 }, new Goal[] { goal1, goal2 });
+            checkGameStatus();
+            this.Invalidate();
+        }
+
+        private void GameForm_Paint(object sender, PaintEventArgs e)
+        {
+            frame.drawShape(e.Graphics);
+            e.Graphics.DrawLine(new Pen(Color.Yellow, 5), new PointF(0, screenHeight / 2), new PointF(screenWidth, screenHeight / 2));
+
+            player2.drawShape(e.Graphics);
+            player1.drawShape(e.Graphics);
+            goal1.drawShape(e.Graphics);
+            goal2.drawShape(e.Graphics);
+            ball.drawShape(e.Graphics);
         }
 
         public void initializeGameObjects(bool withScores = false)
@@ -49,7 +70,6 @@ namespace GlowHockey
                 player2Score = player2.score;
 
             }
-            g = this.CreateGraphics();
             frame = new Frame( 0, 0, Color.Black,  Color.Yellow, this.screenWidth, this.screenHeight);
             player1 = new Player( screenWidth/2 - Player.radius, screenHeight/4 - Player.radius, Color.Green, Color.Gray, Player.Type.Top);
             goal1= new Goal(screenWidth/2 - Goal.width/2, 0, screenWidth / 2 + Goal.width/2, Goal.height, player1);
@@ -76,21 +96,6 @@ namespace GlowHockey
                 player1.y = e.Y;
         }
 
-        private void TimerOnTick(object sender, EventArgs e)
-        {
-            frame.drawShape(g);
-            g.DrawLine(new Pen(Color.Yellow, 5), new PointF(0, screenHeight/2), new PointF(screenWidth, screenHeight/2));
-
-            player2.drawShape(g);
-            player1.drawShape(g);
-            goal1.drawShape(g);
-            goal2.drawShape(g);
-            ball.drawShape(g);
-
-            move(frame, new Player[]{player1, player2}, new Goal[]{goal1, goal2});
-
-            checkGameStatus();
-        }
 
         public void move(Frame frame, Player[] players, Goal[] goals)
         {

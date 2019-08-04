@@ -1,0 +1,8 @@
+D:\Projects\Desktop\GlowHockey\GlowHockey\bin\Release\GlowHockey.exe
+D:\Projects\Desktop\GlowHockey\GlowHockey\bin\Release\GlowHockey.pdb
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Release\GlowHockey.csprojAssemblyReference.cache
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Release\GlowHockey.GameForm.resources
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Release\GlowHockey.csproj.GenerateResource.cache
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Release\GlowHockey.csproj.CoreCompileInputs.cache
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Release\GlowHockey.exe
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Release\GlowHockey.pdb
