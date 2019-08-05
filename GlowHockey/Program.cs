@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using OpponentLibrary;
@@ -31,9 +32,14 @@ namespace GlowHockey
             bool isWaiting = true;
             while (isWaiting)
             {
-                Opponent opponent = (Opponent)bf.Deserialize(ns);
+                //                Opponent opponent = (Opponent)bf.Deserialize(ns);
                 //                Console.WriteLine("Your Opponent Port is " + opponent.Ip.Port);
-                Application.Run(new GameForm(opponent));
+                String msg = sr.ReadLine();
+                String[] op= msg.Split(',');
+                IPEndPoint opIp = new IPEndPoint(IPAddress.Parse(op[0]), Convert.ToInt32(op[1]));
+                Opponent.PlayerType type = op[2] == "T" ? Opponent.PlayerType.Top : Opponent.PlayerType.Bottom;
+                IPEndPoint currentIp = new IPEndPoint(IPAddress.Parse(op[3]), Convert.ToInt32(op[4]));
+                Application.Run(new GameForm(new Opponent(opIp, type, currentIp)));
 
                 isWaiting = false;
 
