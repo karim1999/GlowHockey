@@ -11,9 +11,32 @@ namespace GlowHockey
     {
         public static void Main(string[] args)
         {
+            TcpClient soc = new TcpClient("127.0.0.1", 6691);
+            NetworkStream ns = soc.GetStream();
+            StreamReader sr = new StreamReader(ns);
+            StreamWriter sw = new StreamWriter(ns);
+            BinaryFormatter bf = new BinaryFormatter();
 
 
-            Application.Run(new GameForm());
+            //communicate with server
+            bool isWaiting = true;
+            while (isWaiting)
+            {
+                Opponent opponent = (Opponent)bf.Deserialize(ns);
+//                Console.WriteLine("Your Opponent Port is " + opponent.Ip.Port);
+                Application.Run(new GameForm(opponent));
+
+                isWaiting = false;
+
+            }
+            Console.WriteLine("stop");
+
+
+            sr.Close();
+            sw.Close();
+            soc.Close();
+
+
         }
     }
 }

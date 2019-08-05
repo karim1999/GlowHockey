@@ -10,8 +10,8 @@ D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.csprojAssemblyRef
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.csproj.CoreCompileInputs.cache
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.exe
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.pdb
-D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.GameForm.resources
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.csproj.GenerateResource.cache
 D:\Projects\Desktop\GlowHockey\GlowHockey\bin\Debug\OpponentLibrary.dll
 D:\Projects\Desktop\GlowHockey\GlowHockey\bin\Debug\OpponentLibrary.pdb
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.csproj.CopyComplete
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.GameForm.resources

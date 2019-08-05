@@ -1,4 +1,5 @@
 using System.Drawing;
+using OpponentLibrary;
 
 namespace GlowHockey.GameObjects
 {
@@ -20,15 +21,9 @@ namespace GlowHockey.GameObjects
 
         public Player opponent;
 
-        public enum Type
-        {
-            Top,
-            Bottom
-        }
-
-        public Type type;
+        public Opponent.PlayerType type;
         
-        public Player(float defaultX, float defaultY, Color innerColor, Color outerColor, Type type) : base(defaultX, defaultY, innerColor, outerColor)
+        public Player(float defaultX, float defaultY, Color innerColor, Color outerColor, Opponent.PlayerType type) : base(defaultX, defaultY, innerColor, outerColor)
         {
             brush= new SolidBrush(innerColor);
             pen= new Pen(outerColor, 100);

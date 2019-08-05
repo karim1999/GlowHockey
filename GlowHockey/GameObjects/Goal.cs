@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using OpponentLibrary;
 
 namespace GlowHockey.GameObjects
 {
@@ -38,7 +39,7 @@ namespace GlowHockey.GameObjects
             g.DrawLine(new Pen(outerColor), new PointF(x, y2), new PointF(x2, y2));
             g.DrawLine(new Pen(outerColor), new PointF(x2 , y2), new PointF(x2  , y));
             g.DrawLine(new Pen(outerColor,10), new PointF(x, y), new PointF(x2, y));
-            if(player.type == Player.Type.Top)
+            if(player.type == Opponent.PlayerType.Top)
                 g.DrawString(Convert.ToString(player.score), new Font("Arial",16,FontStyle.Bold), new SolidBrush(innerColor), x + Goal.width/2, y+5);
             else
                 g.DrawString(Convert.ToString(player.score), new Font("Arial",16,FontStyle.Bold), new SolidBrush(innerColor), x + Goal.width/2, y - Goal.height + 5);

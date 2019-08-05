@@ -2,12 +2,19 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using GlowHockey.GameObjects;
+using OpponentLibrary;
+using System.Net.Sockets;
+using System.Net;
+using System.Text;
+using System.Threading;
 
 namespace GlowHockey
 {
+
     public partial class GameForm : Form
     {
-        private Timer timer;
+        private UdpClient soc= new UdpClient();
+        private System.Windows.Forms.Timer timer;
         private Frame frame;
         private Player player1;
         private Player player2;
@@ -19,17 +26,43 @@ namespace GlowHockey
         private int screenHeight= 800;
 
         private bool isRunning;
-        
-        public GameForm()
+        private Opponent opponent;
+
+        public GameForm(Opponent opponent)
         {
             this.DoubleBuffered = true;
+            this.opponent = opponent;
             InitializeComponent();
             
             this.Size= new Size(600+10, 800+30);
-            
+
+            if (opponent.Type == Opponent.PlayerType.Top)
+            {
+                player1 = new Player(screenWidth / 2 - Player.radius, screenHeight / 4 * 3 - Player.radius, Color.Red, Color.Gray, Opponent.PlayerType.Bottom);
+                goal1 = new Goal(screenWidth / 2 - Goal.width / 2, screenHeight, screenWidth / 2 + Goal.width / 2, screenHeight - Goal.height, player1);
+
+                player2 = new Player(screenWidth / 2 - Player.radius, screenHeight / 4 - Player.radius, Color.Green, Color.Gray, Opponent.PlayerType.Top);
+                goal2 = new Goal(screenWidth / 2 - Goal.width / 2, 0, screenWidth / 2 + Goal.width / 2, Goal.height, player2);
+            }
+            else
+            {
+                player1 = new Player(screenWidth / 2 - Player.radius, screenHeight / 4 - Player.radius, Color.Green, Color.Gray, Opponent.PlayerType.Top);
+                goal1 = new Goal(screenWidth / 2 - Goal.width / 2, 0, screenWidth / 2 + Goal.width / 2, Goal.height, player1);
+
+                player2 = new Player(screenWidth / 2 - Player.radius, screenHeight / 4 * 3 - Player.radius, Color.Red, Color.Gray, Opponent.PlayerType.Bottom);
+                goal2 = new Goal(screenWidth / 2 - Goal.width / 2, screenHeight, screenWidth / 2 + Goal.width / 2, screenHeight - Goal.height, player2);
+            }
+
+
             initializeGameObjects();
 
-            timer = new Timer();
+            UdpClient serv_soc = new UdpClient(opponent.CurrentIp.Port);
+            ThreadHandler th = new ThreadHandler(player2, serv_soc);
+            Thread t = new Thread(th.handle);
+            t.Start();
+
+
+            timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000 / 120;
             timer.Tick += TimerOnTick;
             timer.Start();
@@ -40,7 +73,6 @@ namespace GlowHockey
 
         private void TimerOnTick(object sender, EventArgs e)
         {
-            Console.WriteLine("Game");
 
             move(frame, new Player[] { player1, player2 }, new Goal[] { goal1, goal2 });
             checkGameStatus();
@@ -71,11 +103,11 @@ namespace GlowHockey
 
             }
             frame = new Frame( 0, 0, Color.Black,  Color.Yellow, this.screenWidth, this.screenHeight);
-            player1 = new Player( screenWidth/2 - Player.radius, screenHeight/4 - Player.radius, Color.Green, Color.Gray, Player.Type.Top);
-            goal1= new Goal(screenWidth/2 - Goal.width/2, 0, screenWidth / 2 + Goal.width/2, Goal.height, player1);
 
-            player2 = new Player( screenWidth/2 - Player.radius, screenHeight/4*3  - Player.radius, Color.Red,  Color.Gray, Player.Type.Bottom);
-            goal2= new Goal(screenWidth/2 - Goal.width/2, screenHeight, screenWidth / 2 + Goal.width/2, screenHeight - Goal.height, player2);
+            player1.x = player1.defaultX;
+            player1.y = player1.defaultY;
+            player2.x = player2.defaultX;
+            player2.y = player2.defaultY;
 
             ball = new Ball( screenWidth/2 - Ball.radius, screenHeight/2 - Ball.radius, Color.Blue,  Color.Blue);
 
@@ -86,14 +118,42 @@ namespace GlowHockey
                 player1.score = player1Score;
                 player2.score = player2Score;
             }
+
+
+
         }
+
+
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            if(e.X < screenWidth - player1.width)
+            if (e.X < screenWidth - player1.width)
                 player1.x = e.X;
-            if(e.Y < screenHeight/2 - player1.height)
-                player1.y = e.Y;
+            if (opponent.Type == Opponent.PlayerType.Top)
+            {
+                if (e.Y > screenHeight / 2 && e.Y < screenHeight - player1.height)
+                    player1.y = e.Y;
+                else if(e.Y < screenHeight / 2)
+                    player1.y = screenHeight/2;
+            }
+            else
+            {
+                if (e.Y < screenHeight / 2 - player1.height)
+                    player1.y = e.Y;
+                else
+                    player1.y = screenHeight / 2 - player1.height;
+            }
+
+            byte[] data = Encoding.Unicode.GetBytes(player1.x + "," + player1.y);
+            try
+            {
+                soc.Send(data, data.Length, new IPEndPoint(IPAddress.Parse(opponent.Ip.Address.MapToIPv4().ToString()), opponent.Ip.Port));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
 
@@ -129,11 +189,11 @@ namespace GlowHockey
             {
                 if (ballCenter.X  <= goal.x2 && ballCenter.X >= goal.x)
                 {
-                    if (goal.player.type == Player.Type.Top && ballCenter.Y - Ball.radius <= goal.y)
+                    if (goal.player.type == Opponent.PlayerType.Top && ballCenter.Y - Ball.radius <= goal.y)
                     {
                         goal.player.opponent.score += 1;
                         initializeGameObjects(true);
-                    }else if (goal.player.type == Player.Type.Bottom && ballCenter.Y + Ball.radius >= goal.y)
+                    }else if (goal.player.type == Opponent.PlayerType.Bottom && ballCenter.Y + Ball.radius >= goal.y)
                     {
                         goal.player.opponent.score += 1;
                         initializeGameObjects(true);
@@ -171,4 +231,33 @@ namespace GlowHockey
         {
         }
     }
+    public class ThreadHandler
+    {
+        Player player;
+        UdpClient serv_soc;
+
+        public ThreadHandler(Player player, UdpClient serv_soc)
+        {
+            this.player = player;
+            this.serv_soc = serv_soc;
+        }
+
+        public void handle()
+        {
+            while (true)
+            {
+                IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+                Byte[] data = serv_soc.Receive(ref sender);
+
+                String clientmsg = System.Text.Encoding.Unicode.GetString(data);
+                string[] coordinates = clientmsg.Split(',');
+                player.x = Convert.ToInt32(coordinates[0]);
+                player.y = Convert.ToInt32(coordinates[1]);
+                Console.WriteLine(clientmsg);
+
+            }
+        }
+
+    }
+
 }
