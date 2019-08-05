@@ -4,14 +4,23 @@ using System.IO;
 using System.Windows.Forms;
 using OpponentLibrary;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 
 namespace GlowHockey
 {
-    internal class Program
+    class ClientThread
     {
-        public static void Main(string[] args)
+        String ip;
+        int port;
+
+        public ClientThread(string ip, int port)
         {
-            TcpClient soc = new TcpClient("127.0.0.1", 6691);
+            this.ip = ip;
+            this.port = port;
+        }
+        public void handle()
+        {
+            TcpClient soc = new TcpClient(ip, port);
             NetworkStream ns = soc.GetStream();
             StreamReader sr = new StreamReader(ns);
             StreamWriter sw = new StreamWriter(ns);
@@ -23,7 +32,7 @@ namespace GlowHockey
             while (isWaiting)
             {
                 Opponent opponent = (Opponent)bf.Deserialize(ns);
-//                Console.WriteLine("Your Opponent Port is " + opponent.Ip.Port);
+                //                Console.WriteLine("Your Opponent Port is " + opponent.Ip.Port);
                 Application.Run(new GameForm(opponent));
 
                 isWaiting = false;
@@ -35,8 +44,15 @@ namespace GlowHockey
             sr.Close();
             sw.Close();
             soc.Close();
-
-
+        }
+    }
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            ClientThread ct = new ClientThread("127.0.0.1", 6691);
+            Thread th = new Thread(ct.handle);
+            th.Start();
         }
     }
 }

@@ -32,8 +32,8 @@ namespace GlowHockey.GameObjects
             this.width = radius*2;
             this.height = radius*2;
 
-            x = defaultX;
-            y = defaultY;
+            X = defaultX;
+            Y = defaultY;
             
         }
 
@@ -43,7 +43,7 @@ namespace GlowHockey.GameObjects
         }
         public override void drawShape(Graphics g)
         {
-            g.FillEllipse(brush, x, y, width, height);
+            g.FillEllipse(brush, X, Y, width, height);
         }
     }
 }

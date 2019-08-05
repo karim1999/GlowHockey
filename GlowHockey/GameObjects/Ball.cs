@@ -26,14 +26,14 @@ namespace GlowHockey.GameObjects
             this.width = radius*2;
             this.height = radius*2;
 
-            x = defaultX;
-            y = defaultY;
+            X = defaultX;
+            Y = defaultY;
 
         }
 
         public override void drawShape(Graphics g)
         {
-            RectangleF reactangle= new RectangleF(x, y, width, height);
+            RectangleF reactangle= new RectangleF(X, Y, width, height);
             g.FillEllipse(brush, reactangle);
 
         }
