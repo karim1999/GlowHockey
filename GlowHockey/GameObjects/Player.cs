@@ -45,5 +45,11 @@ namespace GlowHockey.GameObjects
         {
             g.FillEllipse(brush, X, Y, width, height);
         }
+        public override void reset()
+        {
+            base.reset();
+            this.score = 0;
+        }
+
     }
 }

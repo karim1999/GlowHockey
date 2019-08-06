@@ -230,20 +230,41 @@ namespace GlowHockey
             return result;
         }
 
-
+        private void resetGame()
+        {
+            player1.reset();
+            player2.reset();
+            ball.reset();
+            goal1.reset();
+            goal2.reset();
+        }
         private void checkGameStatus()
         {
             if (player1.score >= 7)
             {
                 //Player 1 is the winner stop the game
-                initializeGameObjects();
-                MessageBox.Show("You Won !!");
+                resetGame();
+                if (MessageBox.Show("You Won", "Do you want to play again? ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    resetGame();
+                }
+                else
+                {
+                    Environment.Exit(Environment.ExitCode);
+                }
             }
             if (player2.score >= 7)
             {
                 //Player 1 is the winner stop the game
-                initializeGameObjects();
-                MessageBox.Show("You Lost !!");
+                resetGame();
+                if (MessageBox.Show("You Lost", "Do you want to play again? ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    resetGame();
+                }
+                else
+                {
+                    Environment.Exit(Environment.ExitCode);
+                }
 
             }
         }
@@ -281,8 +302,13 @@ namespace GlowHockey
                 }
                 if (coordinates.Length > 4)
                 {
+                    if (player.score != int.Parse(coordinates[4]) || player.opponent.score != int.Parse(coordinates[5]))
+                    {
+                        player.reset();
+                    }
                     player.score = int.Parse(coordinates[4]);
                     player.opponent.score = int.Parse(coordinates[5]);
+
                 }
 
             }

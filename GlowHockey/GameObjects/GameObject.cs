@@ -60,6 +60,11 @@ namespace GlowHockey.GameObjects
             this.outerColor = outerColor;
 
         }
+
+        public virtual void reset() {
+            this.x = defaultX;
+            this.y = defaultY;
+        }
         public abstract void drawShape(Graphics g);
     }
 }
