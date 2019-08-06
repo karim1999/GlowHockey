@@ -90,7 +90,7 @@ namespace GlowHockey
             else
             {
                 move(frame, new Player[] { player1, player2 }, new Goal[] { goal1, goal2 });
-                data = Encoding.Unicode.GetBytes(player1.X + "," + player1.Y + "," + ball.X + "," + ball.Y);
+                data = Encoding.Unicode.GetBytes(player1.X + "," + player1.Y + "," + ball.X + "," + ball.Y + "," + player1.score + "," + player2.score);
             }
 
             try
@@ -278,6 +278,11 @@ namespace GlowHockey
                 {
                     ball.X = float.Parse(coordinates[2]);
                     ball.Y = float.Parse(coordinates[3]);
+                }
+                if (coordinates.Length > 4)
+                {
+                    player.score = int.Parse(coordinates[4]);
+                    player.opponent.score = int.Parse(coordinates[5]);
                 }
 
             }
