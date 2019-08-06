@@ -56,9 +56,7 @@ namespace GlowHockey
     {
         public static void Main(string[] args)
         {
-            ClientThread ct = new ClientThread("127.0.0.1", 6691);
-            Thread th = new Thread(ct.handle);
-            th.Start();
+            Application.Run(new Form1());   
         }
     }
 }

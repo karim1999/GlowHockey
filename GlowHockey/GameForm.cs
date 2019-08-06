@@ -236,11 +236,14 @@ namespace GlowHockey
             {
                 //Player 1 is the winner stop the game
                 initializeGameObjects();
+                MessageBox.Show("You Won !!");
             }
             if (player2.score >= 7)
             {
                 //Player 1 is the winner stop the game
                 initializeGameObjects();
+                MessageBox.Show("You Lost !!");
+
             }
         }
          

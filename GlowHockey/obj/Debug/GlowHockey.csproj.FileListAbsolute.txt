@@ -15,3 +15,15 @@ D:\Projects\Desktop\GlowHockey\GlowHockey\bin\Debug\OpponentLibrary.dll
 D:\Projects\Desktop\GlowHockey\GlowHockey\bin\Debug\OpponentLibrary.pdb
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.csproj.CopyComplete
 D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.GameForm.resources
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\bin\Debug\GlowHockey.exe
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\bin\Debug\GlowHockey.pdb
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\bin\Debug\OpponentLibrary.pdb
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.csprojAssemblyReference.cache
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.GameForm.resources
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.csproj.GenerateResource.cache
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.csproj.CoreCompileInputs.cache
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.csproj.CopyComplete
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.exe
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.pdb
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.Form1.resources
+C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.Properties.Resources.resources
