@@ -27,3 +27,5 @@ C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.exe
 C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.pdb
 C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.Form1.resources
 C:\Users\kerol\Desktop\GlowHockey-master\GlowHockey\obj\Debug\GlowHockey.Properties.Resources.resources
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.Form1.resources
+D:\Projects\Desktop\GlowHockey\GlowHockey\obj\Debug\GlowHockey.Properties.Resources.resources

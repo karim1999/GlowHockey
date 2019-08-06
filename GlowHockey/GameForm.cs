@@ -34,7 +34,7 @@ namespace GlowHockey
             this.opponent = opponent;
             InitializeComponent();
             
-            this.Size= new Size(600+10, 800+40);
+            this.Size= new Size(600+20, 800+40);
 
             if (opponent.Type == Opponent.PlayerType.Top)
             {
@@ -176,11 +176,12 @@ namespace GlowHockey
         public void move(Frame frame, Player[] players, Goal[] goals)
         {
             PointF ballCenter= new PointF(ball.X+Ball.radius, ball.Y+Ball.radius);
-            if ((ballCenter.X) - frame.X <= Ball.radius || frame.width - (ballCenter.X) <= Ball.radius )
+            if((ball.speedX > 0 && frame.width - (ballCenter.X) <= Ball.radius) || (ball.speedX < 0 && (ballCenter.X) - frame.X <= Ball.radius) )
             {
                 ball.speedX *= -1;
             }
-            if ((ballCenter.Y) - frame.Y <= Ball.radius || frame.height - (ballCenter.Y) <= Ball.radius )
+           
+            if ((ball.speedY < 0 && (ballCenter.Y) - frame.Y <= Ball.radius) || (ball.speedY > 0 && frame.height - (ballCenter.Y) <= Ball.radius) )
             {
                 ball.speedY *= -1;
             }
